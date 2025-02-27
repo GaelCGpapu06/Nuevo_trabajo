@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallando la ruta más corta</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="Button.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #fff;
+            background: #ff6f61;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        #map {
+            width: 90%;
+            height: 650px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        #info {
+            margin-top: 15px;
+            font-size: 18px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculador de Ruta</h2>
+    <div id="map"></div>
+    <button onclick="calculateRoute()">Calcular Ruta</button>
+    <div id="info">Distancia: -- km</div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([-11.9555, -77.0485], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        const startIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41]
+        });
+
+        const endIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41]
+        });
+
+        let startMarker = L.marker([-11.9555, -77.0485], { draggable: true, icon: startIcon }).addTo(map);
+        let endMarker = L.marker([-11.9655, -77.0585], { draggable: true, icon: endIcon }).addTo(map);
+        let routeLayer;
+
+        function calculateRoute() {
+            const start = startMarker.getLatLng();
+            const end = endMarker.getLatLng();
+            const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`;
+            
+            fetch(osrmUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.routes.length > 0) {
+                        const route = data.routes[0];
+                        const distanceKm = (route.distance / 1000).toFixed(2);
+                        document.getElementById('info').textContent = `Distancia: ${distanceKm} km`;
+
+                        if (routeLayer) {
+                            map.removeLayer(routeLayer);
+                        }
+
+                        routeLayer = L.geoJSON(route.geometry, { color: 'blue' }).addTo(map);
+                    }
+                })
+                .catch(error => console.error('Error al obtener la ruta:', error));
+        }
+    </script>
+</body>
+</html>
