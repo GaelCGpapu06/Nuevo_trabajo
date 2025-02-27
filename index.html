@@ -5,77 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEOSALUD</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="./styles/Button.css">
+    <link rel="stylesheet" href="./styles/Topbar.css">
+    <link rel="stylesheet" href="./styles/Indications.css">
+    <link rel="stylesheet" href="./styles/Map.css">
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
         
         body {
-            font-family: Arial, sans-serif;
-            background-color: #A3C9A8;
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(150deg, #A3C9A8, #E0F2E9);
             margin: 0;
             padding: 0;
             text-align: center;
         }
-        /* Mejora la apariencia del cuadro de indicaciones */
-        .leaflet-routing-container {
-    background-color: white !important; /* Fondo blanco */
-    color: #333 !important; /* Texto oscuro */
-    font-size: 14px !important; /* Tamaño de letra */
-    border-radius: 10px !important; /* Bordes redondeados */
-    padding: 10px !important; /* Espaciado interno */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* Sombra */
-    max-width: 300px !important; /* Ajustar el ancho */
 
-        }
-        .top-bar {
-            background-color: #DDD8C4;
-            padding: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #50808E;
-            text-align: center;
-            font-family: 'Roboto Slab', serif;
-        }
-        .button-container {
-            margin: 20px;
-        }
-        button {
-            background-color: #50808E;
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            margin: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #69A297;
-        }
-        #map {
-            height: 500px;
-            width: 80%;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
         #distancia {
             font-size: 18px;
             font-weight: bold;
             color: #50808E;
             margin-top: 10px;
         }
-        .leaflet-routing-container {
-            background-color: white !important; /* Fondo blanco para mayor visibilidad */
-            padding: 10px;
-            border-radius: 8px;
-        }
+    
     </style>
 </head>
 <body>
-    <div class="top-bar">GEOSALUD</div>
+    <div class="top-bar">GEOSALUD: Tu ruta más rápida hacia la salud</div>
     <div class="button-container">
         <button onclick="buscarClinicas()">Buscar Clínicas</button>
         <button onclick="limpiarMarcadores()">Limpiar</button>

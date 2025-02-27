@@ -1,0 +1,11 @@
+/* Mejora la apariencia del cuadro de indicaciones */
+.leaflet-routing-container {
+    background-color: white !important; /* Fondo blanco */
+    color: #333 !important; /* Texto oscuro */
+    font-size: 14px !important; /* Tamaño de letra */
+    border-radius: 10px !important; /* Bordes redondeados */
+    padding: 10px !important; /* Espaciado interno */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* Sombra */
+    max-width: 300px !important; /* Ajustar el ancho */
+    border-radius: 8px;
+}
